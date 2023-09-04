@@ -51,7 +51,7 @@ async def youtube_video_download_callback(callback_query: types.CallbackQuery, s
 			stream.download(output_path=video_path)
 			with open(f'{video_path}/{yt.title}.mp4', 'rb') as video_file:
 				await bot.send_video(callback_query.from_user.id, video_file)
-			# shutil.rmtree(video_path)
+			shutil.rmtree(video_path)
 		else:
 			await bot.send_message(callback_query.from_user.id, "Video could not be downloaded.")
 	except Exception as e:
