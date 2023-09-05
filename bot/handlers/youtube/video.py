@@ -54,7 +54,32 @@ async def youtube_video_download_callback(callback_query: types.CallbackQuery, s
 			shutil.rmtree(video_path)
 		else:
 			await bot.send_message(callback_query.from_user.id, "Video could not be downloaded.")
-	except Exception as e:
+	except:
 		await bot.send_message(callback_query.from_user.id, f"Video could not be downloaded. Maybe it is to long.")
+	finally:
+		await state.finish()
+
+
+async def youtube_audio_download_callback(callback_query: types.CallbackQuery, state: FSMContext):
+
+	bot: Bot = callback_query.bot
+	await bot.delete_message(callback_query.message.chat.id, callback_query.message.message_id)
+
+	async with state.proxy() as data:
+		link = data['VIDEO_LINK']
+
+	try:
+		yt = YouTube(link)
+		audio_stream = yt.streams.filter(only_audio=True).first()
+		if audio_stream:
+			video_path = f'bot/downloaded/youtube/video/{callback_query.from_user.id}'
+			audio_stream.download(output_path=video_path)
+			with open(f'{video_path}/{yt.title}.mp4', 'rb') as video_file:
+				await bot.send_audio(callback_query.from_user.id, video_file)
+			shutil.rmtree(video_path)
+		else:
+			await bot.send_message(callback_query.from_user.id, "Audio could not be downloaded.")
+	except:
+		await bot.send_message(callback_query.from_user.id, f"Audio could not be downloaded. Maybe it is to long.")
 	finally:
 		await state.finish()
