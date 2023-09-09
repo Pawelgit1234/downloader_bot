@@ -3,13 +3,12 @@ from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 def youtube_menu_buttons():
 	imk = InlineKeyboardMarkup()
-	btn1 = InlineKeyboardButton('Video', callback_data='video')
-	btn2 = InlineKeyboardButton('Shorts', callback_data='shorts')
-	btn3 = InlineKeyboardButton('Playlist', callback_data='playlist')
-	btn4 = InlineKeyboardButton('Community', callback_data='community')
+	btn1 = InlineKeyboardButton('Video and Shorts', callback_data='video')
+	btn2 = InlineKeyboardButton('Playlist', callback_data='playlist')
+	btn3 = InlineKeyboardButton('Community', callback_data='community')
 
 	imk.row(btn1, btn2)
-	imk.row(btn3, btn4)
+	imk.add(btn3)
 	return imk
 
 
@@ -29,4 +28,13 @@ def youtube_choose_video_quality_buttons(video_quality_list: set):
 	for quality in video_quality_list:
 		button = InlineKeyboardButton(text=quality, callback_data=f"quality_{quality}")
 		imk.insert(button)
+	return imk
+
+
+def youtube_playlist_menu_buttons():
+	imk = InlineKeyboardMarkup()
+	btn1 = InlineKeyboardButton("Video", callback_data="p_video_and_audio")
+	btn2 = InlineKeyboardButton("Audio", callback_data="p_audio")
+	imk.add(btn1, btn2)
+
 	return imk
