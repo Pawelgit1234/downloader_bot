@@ -9,7 +9,7 @@ import os
 
 from ...states import YoutubeStates
 from ...keyboards import youtube_video_menu_buttons, youtube_choose_video_quality_buttons
-from ...utils import youtube_video_quality_list
+from ...utils import youtube_video_quality_list, sanitize_filename
 
 
 async def youtube_video_menu(message: types.Message, state: FSMContext):
@@ -50,8 +50,9 @@ async def youtube_video_download_callback(callback_query: types.CallbackQuery, s
 		stream = yt.streams.filter(res=selected_quality).first()
 		if stream:
 			video_path = f'bot/downloaded/youtube/video/{callback_query.from_user.id}'
-			stream.download(output_path=video_path)
-			with open(f'{video_path}/{yt.title}.mp4', 'rb') as video_file:
+			yt_video_title = sanitize_filename(yt.title)
+			stream.download(output_path=video_path, filename=yt_video_title + '.mp4')
+			with open(f'{video_path}/{yt_video_title}.mp4', 'rb') as video_file:
 				await bot.send_video(callback_query.from_user.id, video_file)
 			shutil.rmtree(video_path)
 		else:
@@ -75,8 +76,9 @@ async def youtube_audio_download_callback(callback_query: types.CallbackQuery, s
 		audio_stream = yt.streams.filter(only_audio=True).first()
 		if audio_stream:
 			audio_path = f'bot/downloaded/youtube/video/{callback_query.from_user.id}'
-			audio_stream.download(output_path=audio_path)
-			with open(f'{audio_path}/{yt.title}.mp4', 'rb') as video_file:
+			yt_audio_title = sanitize_filename(yt.title)
+			audio_stream.download(output_path=audio_path, filename=yt_audio_title + '.mp3')
+			with open(f'{audio_path}/{yt_audio_title}.mp3', 'rb') as video_file:
 				await bot.send_audio(callback_query.from_user.id, video_file)
 			shutil.rmtree(audio_path)
 		else:
@@ -102,10 +104,10 @@ async def youtube_thumbnail_download_callback(callback_query: types.CallbackQuer
 		thumbnail_path = f'bot/downloaded/youtube/video/{callback_query.from_user.id}'
 
 		os.makedirs(thumbnail_path, exist_ok=True)
-		video_title = yt.title.replace('|', '_')
-		with open(f'{thumbnail_path}/{video_title}.jpg', 'wb') as file:
+		yt_thumbnail_title = sanitize_filename(yt.title)
+		with open(f'{thumbnail_path}/{yt_thumbnail_title}.jpg', 'wb') as file:
 			file.write(response.content)
-			await bot.send_photo(callback_query.from_user.id, photo=open(f'{thumbnail_path}/{video_title}.jpg', 'rb'))
+			await bot.send_photo(callback_query.from_user.id, photo=open(f'{thumbnail_path}/{yt_thumbnail_title}.jpg', 'rb'))
 
 		shutil.rmtree(thumbnail_path)
 	except:

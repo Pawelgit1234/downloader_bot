@@ -17,11 +17,10 @@ def youtube_video_menu_buttons():
 	imk = InlineKeyboardMarkup()
 	btn1 = InlineKeyboardButton("Audio", callback_data="v_audio")
 	btn2 = InlineKeyboardButton("Video", callback_data="v_video_and_audio")
-	btn3 = InlineKeyboardButton("Video without Audio", callback_data="v_video_without_audio")
-	btn4 = InlineKeyboardButton("Thumbnail", callback_data="v_thumbnail")
+	btn3 = InlineKeyboardButton("Thumbnail", callback_data="v_thumbnail")
 
 	imk.row(btn1, btn2)
-	imk.row(btn3, btn4)
+	imk.add(btn3)
 	return imk
 
 
