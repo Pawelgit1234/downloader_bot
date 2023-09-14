@@ -18,9 +18,7 @@ async def youtube_ask_for_link(callback_query: types.CallbackQuery) -> None:
 
 	match callback_query.data:
 		case 'video':
-			await YoutubeStates.VIDEO_LINK.set()
-		case 'shorts':
-			await YoutubeStates.SHORTS_LINK.set()
+			await YoutubeStates.VIDEO_AND_SHORT_LINK.set()
 		case 'playlist':
 			await YoutubeStates.PLAYLIST_LINK.set()
 		case 'community':
