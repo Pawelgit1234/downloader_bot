@@ -38,3 +38,12 @@ def youtube_playlist_menu_buttons():
 	imk.add(btn1, btn2)
 
 	return imk
+
+
+def youtube_playlist_video_quality_buttons():
+	imk = InlineKeyboardMarkup()
+	btn1 = InlineKeyboardButton("High Quality", callback_data="p_quality_high")
+	btn2 = InlineKeyboardButton("Low Quality", callback_data="p_quality_low")
+	imk.add(btn1, btn2)
+
+	return imk

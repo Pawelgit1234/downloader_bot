@@ -2,7 +2,7 @@ from aiogram import Dispatcher
 
 from .youtube import youtube_menu, youtube_ask_for_link
 from .video import youtube_video_menu, youtube_choose_video_quality, youtube_video_download_callback, youtube_audio_download_callback, youtube_thumbnail_download_callback
-from .playlist import youtube_playlist_menu, youtube_playlist_audio_download_callback
+from .playlist import youtube_playlist_menu, youtube_playlist_audio_download_callback, youtube_playlist_choose_quality, youtube_playlist_video_download_callback
 from ...states import YoutubeStates
 
 
@@ -19,3 +19,5 @@ def register_youtube_handlers(dp: Dispatcher) -> None:
 	dp.register_callback_query_handler(youtube_audio_download_callback, lambda callback_query: callback_query.data == 'v_audio', state='*')
 	dp.register_callback_query_handler(youtube_thumbnail_download_callback, lambda callback_query: callback_query.data == 'v_thumbnail', state='*')
 	dp.register_callback_query_handler(youtube_playlist_audio_download_callback, lambda callback_query: callback_query.data == 'p_audio', state='*')
+	dp.register_callback_query_handler(youtube_playlist_choose_quality, lambda callback_query: callback_query.data == 'p_video_and_audio', state='*')
+	dp.register_callback_query_handler(youtube_playlist_video_download_callback, lambda callback_query: callback_query.data.startswith('p_quality_'), state='*')
