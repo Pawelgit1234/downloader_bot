@@ -5,10 +5,8 @@ def youtube_menu_buttons():
 	imk = InlineKeyboardMarkup()
 	btn1 = InlineKeyboardButton('Video and Shorts', callback_data='video')
 	btn2 = InlineKeyboardButton('Playlist', callback_data='playlist')
-	btn3 = InlineKeyboardButton('Community', callback_data='community')
 
 	imk.row(btn1, btn2)
-	imk.add(btn3)
 	return imk
 
 
