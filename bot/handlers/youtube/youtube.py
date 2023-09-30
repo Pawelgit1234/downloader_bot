@@ -1,5 +1,4 @@
 from aiogram import types
-from aiogram.dispatcher import FSMContext
 from aiogram.bot import Bot
 
 from ...keyboards import youtube_menu_buttons
