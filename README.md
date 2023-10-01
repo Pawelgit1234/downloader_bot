@@ -1,10 +1,7 @@
 # DownloaderBot - Telegram Bot for downloading YouTube Videos
-<hr>
 This is a simple telegram bot, that can download videos, shorts, playlists etc.
 
 ## How to download the bot?
-<hr>
-
 - Clone the repository:
 ```commandline
 git clone https://github.com/Pawelgit1234/downloader_bot.git
