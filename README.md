@@ -2,6 +2,10 @@
 This is a simple telegram bot, that can download videos, shorts, playlists etc.
 
 ## How to download the bot?
+- Create virtual environment:
+```commandline
+python -m venv venv
+```
 - Clone the repository:
 ```commandline
 git clone https://github.com/Pawelgit1234/downloader_bot.git
